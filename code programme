@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main() {
+    int a, b, r, q;
+    int x0 = 1, x1 = 0;
+    int y0 = 0, y1 = 1;
+    int a_init, b_init;
+
+    /* Saisie des deux nombres*/
+    printf("Donner la valeur du premier nombre : ");
+    scanf("%d", &a);
+    printf("Donner la valeur du deuxième nombre : ");
+    scanf("%d", &b);
+
+    /*Sauvegarder les valeurs initiales*/
+    a_init = a;
+    b_init = b;
+
+    /* Boucle d’Euclide + calcul de Bézout*/
+    while (b != 0) {
+        q = a / b;
+        r = a % b;
+
+        int x = x0 - q * x1;
+        int y = y0 - q * y1;
+
+        /*Mise à jour*/
+        a = b;
+        b = r;
+printf("a=%d,b=%d,r=a%%b=%d | x=%d,y=%d\n",a,b,r,x1,y1);
+        x0 = x1;
+        x1 = x;
+        y0 = y1;
+        y1 = y;
+
+    }
+
+    /* Affichage du PGCD*/
+    printf("Le PGCD est : %d\n", a);
+
+    /* Vérification s’ils sont premiers entre eux*/
+    if (a == 1) {
+        printf("Les deux nombres sont premiers entre eux.\n");
+    }
+
+    /* Affichage des coefficients de Bézout*/
+    printf("Coefficients de Bezout : x = %d, y = %d\n", x0, y0);
+    printf("verification :%d*(%d)+%d*(%d)=%d\n",a_init,x0,b_init,y0,a);
+    return 0;
+}
