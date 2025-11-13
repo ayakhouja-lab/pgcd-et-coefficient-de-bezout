@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+/* Algorithme d'Euclide étendu*/
+int bezout(int a, int b, int *x, int *y) {
+    if (b == 0) {
+        *x = 1;
+        *y = 0;
+        return a;
+    }
+    int x1, y1;
+    int d = bezout(b, a % b, &x1, &y1);
+    *x = y1;
+    *y = x1 - (a / b) * y1;
+    return d;
+}
+
+int main() {
+    int a, b, c;
+    printf("Entrez les valeurs de a, b et c (pour a*x + b*y = c):\n");
+    scanf("%d %d %d", &a, &b, &c);
+
+    int x, y;
+    int d = bezout(a, b, &x, &y);
+
+    printf("PGCD(%d, %d) = %d\n", a, b, d);
+    printf("Coefficients de Bézout : x = %d, y = %d\n", x, y);
+
+    /* Vérification de l'existence d'une solution*/
+    if (c % d != 0) {
+        printf("L'équation %d*X + %d*Y = %d n'a pas de solution entière.\n", a, b, c);
+    } else {
+        int k = c / d;
+        printf("Une solution particulière de %d*X + %d*Y = %d est :\n", a, b, c);
+        printf("X = %d, Y = %d\n", x * k, y * k);
+    }
+
+    return 0;
+}
+
+
